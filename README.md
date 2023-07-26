@@ -16,7 +16,10 @@ Según el enunciado se debe realizar operaciones CRUD sobre esta entidad y se de
 
 Con lo anterior se puede realizar un diagrama de secuencia que permita visualizar el flujo de estas operaciones dentro del sistema para su mejor entendimiento. A continuación, se muestra un diagrama de secuencia con las operaciones CRUD para la gestión de las tareas:
 
-![Diagrama de secuencia](docs/images/challenge-diagram-03.png)
+![Diagrama de secuencia](docs/images/challenge-sequence-01.png)
+![Diagrama de secuencia](docs/images/challenge-sequence-02.png)
+![Diagrama de secuencia](docs/images/challenge-sequence-03.png)
+![Diagrama de secuencia](docs/images/challenge-sequence-04.png)
 
 Una vez realizado el diagrama de secuencia se puede concluir que no existen lógica de negocio compleja sino un simple CRUD. Si se debe validar la información de entrada y controlar posibles errores.
 
@@ -33,4 +36,3 @@ En el siguiente [link](https://app.swaggerhub.com/apis-docs/FAQ_CODES/coopeuch_a
 Este es un intento previo para probar el funcionamiento y visualización de los objetos que la API retorna, sin encontrarse aún implementada.
 
 En la implementación de la solución se utilizará las herramientas que provee Sprintboot para la documentación de la API a través de Swagger.
-
