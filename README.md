@@ -6,13 +6,13 @@ A continuación se presenta la solución (diseño e implementación) del desafí
 
 Se trata de dar solución al problema con un enfoque de **"design-first"**. Para el diseño de la solución se comienza definiendo las entidades del dominio, encontrándose solo una: Tareas
 
-![Diagrama de la solución](docs/images/challenge-diagram-01.png)
+![Diagrama de la solución](docs/images/challenge-diagram-01.png){width='50%'}
 
 Se establecen algunos atributos iniciales que puede tener la entidad de negocio Tarea, como se muestra en la siguiente imagen:
 
-![Diagrama de la solución](docs/images/challenge-diagram-02.png)
+![Diagrama de la solución](docs/images/challenge-diagram-02.png){width='50%'}
 
-Según el enunciado se debe realizar operaciones CRUD sobre esta entidad y se deben exponer como API REST. También se deben realizar algunas validaciones en los datos de entrada, persistir los datos y realizar pruebas.
+Según el enunciado se deben realizar operaciones CRUD sobre esta entidad y se deben exponer como API REST. También se deben realizar algunas validaciones en los datos de entrada, persistir los datos y realizar pruebas.
 
 Con lo anterior se puede realizar un diagrama de secuencia que permita visualizar el flujo de estas operaciones dentro del sistema para su mejor entendimiento. A continuación, se muestra un diagrama de secuencia con las operaciones CRUD para la gestión de las tareas:
 
@@ -21,7 +21,7 @@ Con lo anterior se puede realizar un diagrama de secuencia que permita visualiza
 ![Diagrama de secuencia](docs/images/challenge-sequence-03.png)
 ![Diagrama de secuencia](docs/images/challenge-sequence-04.png)
 
-Una vez realizado el diagrama de secuencia se puede concluir que no existen lógica de negocio compleja sino un simple CRUD. Si se debe validar la información de entrada y controlar posibles errores.
+Una vez realizado el diagrama de secuencia se puede concluir que no existen lógica de negocio compleja sino que corresponde a un CRUD simple. Sin embargo, se debe validar la información de entrada y controlar posibles errores.
 
 Con respecto a las entradas y salidas del sistema se busca alcanzar el máximo nivel de madurez para la API, es decir, utilizar los métodos y verbos HTTP para las distintas operaciones e incluir el principio HATEOS. También, se busca una salida consistente para ser tratada por el cliente de manera simple.
 
