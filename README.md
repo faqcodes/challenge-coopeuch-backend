@@ -6,11 +6,11 @@ A continuación se presenta la solución (diseño e implementación) del desafí
 
 Se trata de dar solución al problema con un enfoque de **"design-first"**. Para el diseño de la solución se comienza definiendo las entidades del dominio, encontrándose solo una: Tareas
 
-![Diagrama de la solución](docs/images/challenge-diagram-01.png | width=50)
+![Diagrama de la solución](docs/images/challenge-diagram-01.png)
 
 Se establecen algunos atributos iniciales que puede tener la entidad de negocio Tarea, como se muestra en la siguiente imagen:
 
-![Diagrama de la solución](docs/images/challenge-diagram-02.png  | width=50)
+![Diagrama de la solución](docs/images/challenge-diagram-02.png)
 
 Según el enunciado se deben realizar operaciones CRUD sobre esta entidad y se deben exponer como API REST. También se deben realizar algunas validaciones en los datos de entrada, persistir los datos y realizar pruebas.
 
@@ -38,7 +38,7 @@ Este es un intento previo para probar el funcionamiento y visualización de los 
 En la implementación de la solución se utilizará las herramientas que provee Sprintboot para la documentación de la API a través de Swagger.
 
 
-## DETALLE DE DISEÑO
+## DISEÑO DETALLADO
 
 Con la información obtenida hasta ahora se puede realizar un diseño detallado de los objetos involucrados en la solución del problema. A continuación, se muestra un esquema de los objetos a crer y su interacción:
 
