@@ -115,7 +115,7 @@ public class TaskServiceImplementation implements TaskService {
 
     if (entity == null) {
       return new TaskResponse<>(
-          "ERROR",
+          "SUCCESS",
           "No se encontró la tarea",
           null,
           null);
@@ -130,7 +130,7 @@ public class TaskServiceImplementation implements TaskService {
 
     return new TaskResponse<>(
         "SUCCESS",
-        "La tarea a ha obtenido satisfactiamente",
+        "La tarea a ha obtenido satisfactoriamente",
         null,
         getTaskResponse);
   }
@@ -142,7 +142,7 @@ public class TaskServiceImplementation implements TaskService {
 
     if (entity.isEmpty()) {
       return new TaskResponse<>(
-          "ERROR",
+          "SUCCESS",
           "No se encontraron tareas",
           null,
           null);
@@ -160,7 +160,7 @@ public class TaskServiceImplementation implements TaskService {
 
     return new TaskResponse<>(
         "SUCCESS",
-        "Las tareas se han obtenido satisfactiamente",
+        "Las tareas se han obtenido satisfactoriamente",
         null,
         getAllTaskResponse);
   }
