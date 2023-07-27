@@ -26,7 +26,7 @@ import com.coopeuch.challenge.domain.services.CreateTaskService;
 @RequestMapping("/api/tasks/v1")
 public class TaskController {
   
-  private final CreateTaskService createTaskService;
+  private CreateTaskService createTaskService;
 
   public TaskController(CreateTaskService createTaskService) {
     this.createTaskService = createTaskService;

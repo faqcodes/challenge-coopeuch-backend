@@ -3,6 +3,9 @@ package com.coopeuch.challenge.domain.services;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.coopeuch.challenge.domain.entities.TaskEntity;
 import com.coopeuch.challenge.domain.models.CreateTaskRequest;
 import com.coopeuch.challenge.domain.models.CreateTaskResponse;
@@ -13,6 +16,7 @@ import com.coopeuch.challenge.domain.models.UpdateTaskRequest;
 import com.coopeuch.challenge.domain.models.UpdateTaskResponse;
 import com.coopeuch.challenge.persistences.repositories.TaskRepository;
 
+@Service
 public class TaskServiceImplementation implements TaskService {
 
   private TaskRepository taskRepository;

@@ -9,6 +9,10 @@ public class CreateTaskServiceImplementation implements CreateTaskService {
 
   private TaskRepository taskRepository;
 
+  public CreateTaskServiceImplementation(TaskRepository taskRepository) {
+    this.taskRepository = taskRepository;
+  }
+
   @Override
   public TaskService create() {
     return new TaskServiceImplementation(taskRepository);
