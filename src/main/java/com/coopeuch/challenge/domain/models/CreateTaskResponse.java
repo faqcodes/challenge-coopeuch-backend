@@ -1,6 +1,6 @@
 package com.coopeuch.challenge.domain.models;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +10,6 @@ import lombok.Getter;
 public class CreateTaskResponse {
   private final long taskId;
   private final String description;
-  private final Date createAt;
+  private final LocalDateTime createAt;
   private final boolean active;
 }
