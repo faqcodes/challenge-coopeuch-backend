@@ -43,3 +43,30 @@ En la implementación de la solución se utilizará las herramientas que provee 
 Con la información obtenida hasta ahora se puede realizar un diseño detallado de los objetos involucrados en la solución del problema. A continuación, se muestra un esquema de los objetos a crer y su interacción:
 
 ![Diagrama de la solución](docs/images/challenge-diagram-03.png)
+
+## Getting Started
+
+Para la ejecución del proyecto se deben seguir los siguientes pasos.
+
+Clonar el proyecto desde github
+```
+git clone git@github.com:faqcodes/challenge-coopeuch-backend.git
+
+cd challenge-coopeuch-backend
+```
+
+Construir el proyecto
+````
+./gradlew build
+````
+
+Ejecutar el proyecto
+
+``````
+./gradlew bootRun
+``````
+
+El proyecto usa H2 en memoria como base de datos. Al ejecutar la aplicación, se insertarán 3 tareas por defecto. Al momento de detener la aplicación, toda la información se eliminará.
+
+### La aplicación se ejecuta en el puerto <b>8090</b>. La aplicación cliente se encuentra configurada para que apunte a ese puerto
+
