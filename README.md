@@ -70,3 +70,41 @@ El proyecto usa H2 en memoria como base de datos. Al ejecutar la aplicación, se
 
 ### La aplicación se ejecuta en el puerto <b>8090</b>. La aplicación cliente se encuentra configurada para que apunte a ese puerto
 
+## cURL para interactuar con la API
+
+Obtener todas las tareas: GET
+````
+curl --location 'http://localhost:8090/api/tasks/v1'
+````
+
+Obtener una tarea por ID: GET
+````
+curl --location 'http://localhost:8090/api/tasks/v1/84817039973'
+````
+
+Crear una tarea: POST
+````
+curl --location 'http://localhost:8090/api/tasks/v1' \
+--header 'Content-Type: application/json' \
+--data '{
+    "description": "DESCRIPCION TAREA X",
+    "active": "true"
+}'
+```
+
+Actualizar una tarea: PATCH
+````
+curl --location --request PATCH 'http://localhost:8090/api/tasks/v1' \
+--header 'Content-Type: application/json' \
+--data '{
+    "taskId": 1,
+    "description": "TAREA ACTUALIZADA X",
+    "active": "true"
+}'
+````
+
+Eliminar una tarea: DELETE
+````
+curl --location --request DELETE 'http://localhost:8090/api/tasks/v1/1'
+```
+
