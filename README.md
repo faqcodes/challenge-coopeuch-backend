@@ -1,6 +1,6 @@
 # Desafío coopeuch backend
 
-A continuación se presenta la solución (diseño e implementación) del desafío Coopeuch correspondiente al backend. El desafío consta de una parte en el frontend y una parte en el backend. El enunciado del desafío se encuentra [AQUÍ](docs/images/challenge.png)
+A continuación se presenta la solución (diseño e implementación) del desafío Coopeuch correspondiente al backend.  El desafío consta de una parte en el frontend y una parte en el backend. El frontend se puede encontrar en el siguiente enlace [challenge-coopeuch-frontend](https://github.com/faqcodes/challenge-coopeuch-frontend). El enunciado del desafío se encuentra en este enlace [ENUNCIADO](docs/images/challenge.png)
 
 ## Diseño
 
@@ -60,7 +60,7 @@ Construir el proyecto
 ./gradlew build
 ````
 
-Ejecutar el proyecto
+Ejecutar el proyecto. Se ejecutar las pruebas de la solución y se desplegará en el puerto <b>8090<b>
 
 ``````
 ./gradlew bootRun
