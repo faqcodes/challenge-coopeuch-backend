@@ -44,10 +44,10 @@ Con la información obtenida hasta ahora se puede realizar un diseño detallado 
 
 ![Diagrama de la solución](docs/images/challenge-diagram-03.png)
 
-``````
-La solcuión fue diseñada para que al crear una tarea, tanto el ID como la fecha de creación se crean en el backend. Por lo tanto, no es requerido que: taskID y createAt sean enviado por el cliente.
-````
-``
+
+### La solcuión fue diseñada para que al crear una tarea, tanto el ID como la fecha de creación se crean en el backend. Por lo tanto, no es requerido que: taskID y createAt sean enviado por el cliente.
+
+
 ## Getting Started
 
 Para la ejecución del proyecto se deben seguir los siguientes pasos.
@@ -60,15 +60,15 @@ cd challenge-coopeuch-backend
 ```
 
 Construir el proyecto
-````
+```
 ./gradlew build
-````
+```
 
 Ejecutar el proyecto. Se ejecutar las pruebas de la solución y se desplegará en el puerto <b>8090<b>
 
-``````
+```
 ./gradlew bootRun
-``````
+```
 
 El proyecto usa H2 en memoria como base de datos. Al ejecutar la aplicación, se insertarán 3 tareas por defecto. Al momento de detener la aplicación, toda la información se eliminará.
 
@@ -77,17 +77,17 @@ El proyecto usa H2 en memoria como base de datos. Al ejecutar la aplicación, se
 ## cURL para interactuar con la API
 
 Obtener todas las tareas: GET
-````
+```
 curl --location 'http://localhost:8090/api/tasks/v1'
-````
+```
 
 Obtener una tarea por ID: GET
-````
+```
 curl --location 'http://localhost:8090/api/tasks/v1/84817039973'
-````
+```
 
 Crear una tarea: POST
-````
+```
 curl --location 'http://localhost:8090/api/tasks/v1' \
 --header 'Content-Type: application/json' \
 --data '{
@@ -97,7 +97,7 @@ curl --location 'http://localhost:8090/api/tasks/v1' \
 ```
 
 ERROR al crear una tarea (falta la descripcion)
-````
+```
 curl --location 'http://localhost:8090/api/tasks/v1' \
 --header 'Content-Type: application/json' \
 --data '{
@@ -107,7 +107,7 @@ curl --location 'http://localhost:8090/api/tasks/v1' \
 ```
 
 Actualizar una tarea: PATCH
-````
+```
 curl --location --request PATCH 'http://localhost:8090/api/tasks/v1' \
 --header 'Content-Type: application/json' \
 --data '{
@@ -115,10 +115,10 @@ curl --location --request PATCH 'http://localhost:8090/api/tasks/v1' \
     "description": "TAREA ACTUALIZADA X",
     "active": "true"
 }'
-````
+```
 
 Eliminar una tarea: DELETE
-````
+```
 curl --location --request DELETE 'http://localhost:8090/api/tasks/v1/1'
 ```
 
