@@ -44,6 +44,10 @@ Con la información obtenida hasta ahora se puede realizar un diseño detallado 
 
 ![Diagrama de la solución](docs/images/challenge-diagram-03.png)
 
+``````
+La solcuión fue diseñada para que al crear una tarea, tanto el ID como la fecha de creación se crean en el backend. Por lo tanto, no es requerido que: taskID y createAt sean enviado por el cliente.
+````
+``
 ## Getting Started
 
 Para la ejecución del proyecto se deben seguir los siguientes pasos.
@@ -88,6 +92,16 @@ curl --location 'http://localhost:8090/api/tasks/v1' \
 --header 'Content-Type: application/json' \
 --data '{
     "description": "DESCRIPCION TAREA X",
+    "active": "true"
+}'
+```
+
+ERROR al crear una tarea (falta la descripcion)
+````
+curl --location 'http://localhost:8090/api/tasks/v1' \
+--header 'Content-Type: application/json' \
+--data '{
+    "description": "",
     "active": "true"
 }'
 ```
