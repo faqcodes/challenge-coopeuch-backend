@@ -7,13 +7,13 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.coopeuch.challenge.domain.models.TaskResponse;
+import com.coopeuch.challenge.domain.models.ServiceResponse;
 
 public class BaseController {
 
   // Error MethodArgumentNotValid
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity<TaskResponse<?>> handleValidationExceptions(MethodArgumentNotValidException e) {
+  public ResponseEntity<ServiceResponse<?>> handleValidationExceptions(MethodArgumentNotValidException e) {
     var errors = new ArrayList<String>();
 
     e.getBindingResult().getAllErrors().forEach((error) -> {
@@ -22,7 +22,7 @@ public class BaseController {
       errors.add(fieldName + ": " + errorMessage);
     });
 
-    var response = new TaskResponse<>(
+    var response = new ServiceResponse<>(
         "ERROR",
         "Hubo un error al obtener el recurso",
         errors,
@@ -33,12 +33,12 @@ public class BaseController {
 
   // Error general
   @ExceptionHandler(Exception.class)
-  public ResponseEntity<TaskResponse<?>> handleException(Exception e) {
+  public ResponseEntity<ServiceResponse<?>> handleException(Exception e) {
     var errors = new ArrayList<String>();
 
     errors.add(e.getMessage());
 
-    var response = new TaskResponse<>(
+    var response = new ServiceResponse<>(
         "ERROR",
         "Hubo un error al obtener el recurso",
         errors,

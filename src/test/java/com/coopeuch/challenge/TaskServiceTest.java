@@ -6,13 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.coopeuch.challenge.domain.entities.TaskEntity;
-import com.coopeuch.challenge.domain.models.CreateTaskRequest;
-import com.coopeuch.challenge.domain.models.CreateTaskResponse;
-import com.coopeuch.challenge.domain.models.DeleteTaskResponse;
-import com.coopeuch.challenge.domain.models.GetTaskResponse;
+import com.coopeuch.challenge.domain.models.TaskRequest;
 import com.coopeuch.challenge.domain.models.TaskResponse;
-import com.coopeuch.challenge.domain.models.UpdateTaskRequest;
-import com.coopeuch.challenge.domain.models.UpdateTaskResponse;
 import com.coopeuch.challenge.domain.services.TaskServiceImplementation;
 import com.coopeuch.challenge.persistences.repositories.TaskRepository;
 
@@ -24,32 +19,31 @@ import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 class TaskServiceTest {
 
   private TaskRepository taskRepository;
-  private TaskServiceImplementation taskService;
+  private TaskServiceImplementation<TaskRepository> taskService;
 
   @BeforeEach
   void setUp() {
     // Preparar el repositorio mockado
     taskRepository = Mockito.mock(TaskRepository.class);
-    taskService = new TaskServiceImplementation(taskRepository);
+    taskService = new TaskServiceImplementation<>(taskRepository);
   }
 
   @Test
   void testCreate() {
     // Preparar los datos de entrada para el método create
-    CreateTaskRequest createRequest = new CreateTaskRequest("Descripción", true);
+    var createRequest = new TaskRequest("Descripción", true);
 
     // Configurar el comportamiento esperado del repositorio mockado
     TaskEntity savedEntity = new TaskEntity(1, "Descripción", LocalDateTime.now(), true);
     Mockito.when(taskRepository.save(Mockito.any(TaskEntity.class))).thenReturn(savedEntity);
 
     // Ejecutar el método create
-    TaskResponse<CreateTaskResponse> response = taskService.create(createRequest);
+    var response = taskService.create(createRequest);
 
     // Verificar que el resultado sea el esperado
     Assertions.assertEquals("SUCCESS", response.getCode());
@@ -57,7 +51,7 @@ class TaskServiceTest {
     Assertions.assertNull(response.getErrors());
     Assertions.assertNotNull(response.getData());
 
-    CreateTaskResponse responseData = response.getData();
+    var responseData = (TaskResponse) response.getData();
     Assertions.assertEquals(1, responseData.getTaskId());
     Assertions.assertEquals("Descripción", responseData.getDescription());
     Assertions.assertTrue(responseData.isActive());
@@ -70,14 +64,14 @@ class TaskServiceTest {
   @Test
   void testUpdate() {
     // Preparar los datos de entrada para el método update
-    UpdateTaskRequest updateRequest = new UpdateTaskRequest(1l, "Nueva descripción", false);
+    var updateRequest = new TaskRequest(1l, "Nueva descripción", false);
 
     // Configurar el comportamiento esperado del repositorio mockado
     TaskEntity updatedEntity = new TaskEntity(1, "Nueva descripción", LocalDateTime.now(), false);
     Mockito.when(taskRepository.update(Mockito.any(TaskEntity.class))).thenReturn(updatedEntity);
 
     // Ejecutar el método update
-    TaskResponse<UpdateTaskResponse> response = taskService.update(updateRequest);
+    var response = taskService.update(updateRequest);
 
     // Verificar que el resultado sea el esperado
     Assertions.assertEquals("SUCCESS", response.getCode());
@@ -85,7 +79,7 @@ class TaskServiceTest {
     Assertions.assertNull(response.getErrors());
     Assertions.assertNotNull(response.getData());
 
-    UpdateTaskResponse responseData = response.getData();
+    var responseData = (TaskResponse) response.getData();
     Assertions.assertEquals(1, responseData.getTaskId());
     Assertions.assertEquals("Nueva descripción", responseData.getDescription());
     Assertions.assertFalse(responseData.isActive());
@@ -101,7 +95,7 @@ class TaskServiceTest {
     long taskId = 1L;
 
     // Act
-    TaskResponse<DeleteTaskResponse> response = taskService.delete(taskId);
+    var response = taskService.delete(taskId);
 
     // Assert
     assertEquals("SUCCESS", response.getCode());
@@ -119,16 +113,19 @@ class TaskServiceTest {
     when(taskRepository.getById(taskId)).thenReturn(entity);
 
     // Act
-    TaskResponse<GetTaskResponse> response = taskService.getById(taskId);
+    var response = taskService.getById(taskId);
 
     // Assert
     assertEquals("SUCCESS", response.getCode());
     assertEquals("La tarea a ha obtenido satisfactoriamente", response.getMessage());
     assertNull(response.getErrors());
-    assertEquals(entity.getTaskId(), response.getData().getTaskId());
-    assertEquals(entity.getDescription(), response.getData().getDescription());
-    assertEquals(entity.getCreateAt(), response.getData().getCreateAt());
-    assertEquals(entity.isActive(), response.getData().isActive());
+
+    var responseData = (TaskResponse) response.getData();
+    assertEquals(entity.getTaskId(), responseData.getTaskId());
+    assertEquals(entity.getDescription(), responseData.getDescription());
+    assertEquals(entity.getCreateAt(), responseData.getCreateAt());
+    assertEquals(entity.isActive(), responseData.isActive());
+
     verify(taskRepository, times(1)).getById(taskId);
   }
 
@@ -141,17 +138,20 @@ class TaskServiceTest {
     when(taskRepository.getAll()).thenReturn(entities);
 
     // Act
-    TaskResponse<List<GetTaskResponse>> response = taskService.getAll();
+    var response = taskService.getAll();
 
     // Assert
     assertEquals("SUCCESS", response.getCode());
     assertEquals("Las tareas se han obtenido satisfactoriamente", response.getMessage());
     assertNull(response.getErrors());
-    assertEquals(entities.size(), response.getData().size());
+
+    var responseData = (List<TaskResponse>) response.getData();
+    assertEquals(entities.size(), responseData.size());
 
     for (int i = 0; i < entities.size(); i++) {
       TaskEntity entity = entities.get(i);
-      GetTaskResponse getTaskResponse = response.getData().get(i);
+      var getTaskResponse = responseData.get(i);
+
       assertEquals(entity.getTaskId(), getTaskResponse.getTaskId());
       assertEquals(entity.getDescription(), getTaskResponse.getDescription());
       assertEquals(entity.getCreateAt(), getTaskResponse.getCreateAt());

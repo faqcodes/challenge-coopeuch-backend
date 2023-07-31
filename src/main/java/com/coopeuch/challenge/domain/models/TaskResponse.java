@@ -1,15 +1,15 @@
 package com.coopeuch.challenge.domain.models;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class TaskResponse<T> {
-  private final String code;
-  private final String message;
-  private final List<String> errors;
-  private final T data;
+public class TaskResponse {
+  private final long taskId;
+  private final String description;
+  private final LocalDateTime createAt;
+  private final boolean active;
 }

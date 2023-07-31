@@ -3,30 +3,25 @@ package com.coopeuch.challenge.domain.services;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.coopeuch.challenge.domain.entities.TaskEntity;
-import com.coopeuch.challenge.domain.models.CreateTaskRequest;
-import com.coopeuch.challenge.domain.models.CreateTaskResponse;
-import com.coopeuch.challenge.domain.models.DeleteTaskResponse;
-import com.coopeuch.challenge.domain.models.GetTaskResponse;
+import com.coopeuch.challenge.domain.models.ServiceResponse;
+import com.coopeuch.challenge.domain.models.TaskRequest;
 import com.coopeuch.challenge.domain.models.TaskResponse;
-import com.coopeuch.challenge.domain.models.UpdateTaskRequest;
-import com.coopeuch.challenge.domain.models.UpdateTaskResponse;
 import com.coopeuch.challenge.persistences.repositories.TaskRepository;
 
 @Service
-public class TaskServiceImplementation implements TaskService {
+public class TaskServiceImplementation<T> implements CrudService<TaskRequest, TaskResponse> {
 
   private TaskRepository taskRepository;
 
-  public TaskServiceImplementation(TaskRepository taskRepository) {
-    this.taskRepository = taskRepository;
+  public TaskServiceImplementation(T repository) {
+    this.taskRepository = (TaskRepository) repository;
   }
 
   @Override
-  public TaskResponse<CreateTaskResponse> create(CreateTaskRequest createRequest) {
+  public ServiceResponse<TaskResponse> create(TaskRequest createRequest) {
     // taskId se genera en la BD
     var taskId = 0l;
 
@@ -44,22 +39,22 @@ public class TaskServiceImplementation implements TaskService {
     var entity = taskRepository.save(taskEntity);
 
     // Se crea el objeto a retornar con la nuevo info
-    var createTaskResponse = new CreateTaskResponse(
+    var taskResponse = new TaskResponse(
         entity.getTaskId(),
         entity.getDescription(),
         entity.getCreateAt(),
         entity.isActive());
 
     // Se retorna el objeto creado
-    return new TaskResponse<>(
+    return new ServiceResponse<>(
         "SUCCESS",
         "La tarea se ha ejecutado satisfactoriamente",
         null,
-        createTaskResponse);
+        taskResponse);
   }
 
   @Override
-  public TaskResponse<UpdateTaskResponse> update(UpdateTaskRequest updateRequest) {
+  public ServiceResponse<TaskResponse> update(TaskRequest updateRequest) {
     // Se crea la entidad de negocio
     // (createAt no es necesario ya que no se modifica)
     var taskEntity = new TaskEntity(
@@ -73,7 +68,7 @@ public class TaskServiceImplementation implements TaskService {
 
     if (entity == null) {
       // Se retorna el objeto con error
-      return new TaskResponse<>(
+      return new ServiceResponse<>(
           "ERROR",
           "Error al actualizar la tarea",
           null,
@@ -81,27 +76,27 @@ public class TaskServiceImplementation implements TaskService {
     }
 
     // Se crea el objeto a retornar con la nuevo info
-    var updateTaskResponse = new UpdateTaskResponse(
+    var taskResponse = new TaskResponse(
         entity.getTaskId(),
         entity.getDescription(),
         entity.getCreateAt(),
         entity.isActive());
 
     // Se retorna el objeto creado
-    return new TaskResponse<>(
+    return new ServiceResponse<>(
         "SUCCESS",
         "La tarea se ha actualizado satisfactoriamente",
         null,
-        updateTaskResponse);
+        taskResponse);
   }
 
   @Override
-  public TaskResponse<DeleteTaskResponse> delete(long taskId) {
+  public ServiceResponse<TaskResponse> delete(long taskId) {
     // Se elimina en la BD
     taskRepository.delete(taskId);
 
     // Se retorna el objeto creado
-    return new TaskResponse<>(
+    return new ServiceResponse<>(
         "SUCCESS",
         "La tarea se ha eliminado satisfactoriamente",
         null,
@@ -109,12 +104,12 @@ public class TaskServiceImplementation implements TaskService {
   }
 
   @Override
-  public TaskResponse<GetTaskResponse> getById(long taskId) {
+  public ServiceResponse<TaskResponse> getById(long taskId) {
     // Se obtiene la tarea desde la BD
     var entity = taskRepository.getById(taskId);
 
     if (entity == null) {
-      return new TaskResponse<>(
+      return new ServiceResponse<>(
           "SUCCESS",
           "No se encontró la tarea",
           null,
@@ -122,26 +117,26 @@ public class TaskServiceImplementation implements TaskService {
     }
 
     // Se crea el objeto a retornar con la nuevo info
-    var getTaskResponse = new GetTaskResponse(
+    var taskResponse = new TaskResponse(
         entity.getTaskId(),
         entity.getDescription(),
         entity.getCreateAt(),
         entity.isActive());
 
-    return new TaskResponse<>(
+    return new ServiceResponse<>(
         "SUCCESS",
         "La tarea a ha obtenido satisfactoriamente",
         null,
-        getTaskResponse);
+        taskResponse);
   }
 
   @Override
-  public TaskResponse<List<GetTaskResponse>> getAll() {
+  public ServiceResponse<List<TaskResponse>> getAll() {
     // Se obtiene la tarea desde la BD
     var entity = taskRepository.getAll();
 
     if (entity.isEmpty()) {
-      return new TaskResponse<>(
+      return new ServiceResponse<>(
           "SUCCESS",
           "No se encontraron tareas",
           null,
@@ -151,14 +146,14 @@ public class TaskServiceImplementation implements TaskService {
     // Se crea el objeto a retornar con la nuevo info
     var getAllTaskResponse = entity
         .stream()
-        .map(task -> new GetTaskResponse(
+        .map(task -> new TaskResponse(
             task.getTaskId(),
             task.getDescription(),
             task.getCreateAt(),
             task.isActive()))
         .toList();
 
-    return new TaskResponse<>(
+    return new ServiceResponse<>(
         "SUCCESS",
         "Las tareas se han obtenido satisfactoriamente",
         null,

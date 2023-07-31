@@ -1,5 +1,8 @@
 package com.coopeuch.challenge.domain.services;
 
+import com.coopeuch.challenge.domain.models.TaskRequest;
+import com.coopeuch.challenge.domain.models.TaskResponse;
+
 public interface CreateTaskService {
-  TaskService create();
+  CrudService<TaskRequest, TaskResponse> create();
 }
