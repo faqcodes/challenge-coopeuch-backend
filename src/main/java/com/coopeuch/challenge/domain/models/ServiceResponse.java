@@ -1,6 +1,6 @@
 package com.coopeuch.challenge.domain.models;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.hateoas.RepresentationModel;
 
@@ -11,9 +11,9 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
-public class TaskResponse extends RepresentationModel<TaskResponse> {
-  private final long taskId;
-  private final String description;
-  private final LocalDateTime createAt;
-  private final boolean active;
+public class ServiceResponse<T> extends RepresentationModel<ServiceResponse<T>> {
+  private final String code;
+  private final String message;
+  private final List<String> errors;
+  private final T data;
 }

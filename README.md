@@ -48,6 +48,12 @@ Con la información obtenida hasta ahora se puede realizar un diseño detallado 
 ### La solcuión fue diseñada para que al crear una tarea, tanto el ID como la fecha de creación se crean en el backend. Por lo tanto, no es requerido que: taskID y createAt sean enviado por el cliente.
 
 
+### Refactor to Factory Method
+
+Se ha cambiado la forma de crear el objeto TaskService para que éste sea de forma genérica y utilizando el patrón Factory Method. La siguiente imagen refleja el cambio:
+
+![Diagrama de la solución](docs/images/challenge-diagram-04.png)
+
 ## Getting Started
 
 Para la ejecución del proyecto se deben seguir los siguientes pasos.

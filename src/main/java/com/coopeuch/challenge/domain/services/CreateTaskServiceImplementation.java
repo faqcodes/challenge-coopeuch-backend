@@ -2,6 +2,8 @@ package com.coopeuch.challenge.domain.services;
 
 import org.springframework.stereotype.Service;
 
+import com.coopeuch.challenge.domain.models.TaskRequest;
+import com.coopeuch.challenge.domain.models.TaskResponse;
 import com.coopeuch.challenge.persistences.repositories.TaskRepository;
 
 @Service
@@ -14,8 +16,8 @@ public class CreateTaskServiceImplementation implements CreateTaskService {
   }
 
   @Override
-  public TaskService create() {
-    return new TaskServiceImplementation(taskRepository);
+  public CrudService<TaskRequest, TaskResponse> create() {
+    return new TaskServiceImplementation<>(taskRepository);
   }
   
 }
