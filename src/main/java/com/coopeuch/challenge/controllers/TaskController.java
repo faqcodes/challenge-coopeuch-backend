@@ -6,9 +6,8 @@ import java.util.List;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-import org.springframework.hateoas.Link;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,18 +19,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.coopeuch.challenge.domain.models.CreateTaskRequest;
-import com.coopeuch.challenge.domain.models.CreateTaskResponse;
-import com.coopeuch.challenge.domain.models.DeleteTaskResponse;
-import com.coopeuch.challenge.domain.models.GetTaskResponse;
 import com.coopeuch.challenge.domain.models.ServiceResponse;
 import com.coopeuch.challenge.domain.models.TaskRequest;
 import com.coopeuch.challenge.domain.models.TaskResponse;
-import com.coopeuch.challenge.domain.models.UpdateTaskRequest;
-import com.coopeuch.challenge.domain.models.UpdateTaskResponse;
 import com.coopeuch.challenge.domain.services.CreateTaskService;
-import com.coopeuch.challenge.domain.services.CrudService;
-
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 
@@ -47,17 +38,11 @@ public class TaskController extends BaseController {
     this.createTaskService = createTaskService;
   }
 
-  // private CrudService taskService;
-
-  // public TaskController(CrudService taskService) {
-  // this.taskService = taskService;
-  // }
-
   @PostMapping()
   public ResponseEntity<ServiceResponse<TaskResponse>> create(@Valid @RequestBody TaskRequest createRequest) {
     var createdUri = URI.create("");
     var taskService = createTaskService.create();
-    
+
     var response = taskService.create(createRequest);
 
     if (response != null) {
@@ -91,8 +76,8 @@ public class TaskController extends BaseController {
       @PathVariable @Min(value = 1, message = "El campo taskId es requerido") long taskId) {
     var taskService = createTaskService.create();
 
-    var response = taskService.delete(taskId);
-    
+    taskService.delete(taskId);
+
     // 204
     return ResponseEntity
         .noContent()

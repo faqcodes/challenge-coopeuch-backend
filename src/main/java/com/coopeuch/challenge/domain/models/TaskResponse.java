@@ -11,7 +11,7 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
-public class TaskResponse {
+public class TaskResponse extends RepresentationModel<TaskResponse> {
   private final long taskId;
   private final String description;
   private final LocalDateTime createAt;
