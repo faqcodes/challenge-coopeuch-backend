@@ -3,6 +3,11 @@ package com.coopeuch.challenge.controllers;
 import java.net.URI;
 import java.util.List;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
+import org.springframework.hateoas.Link;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -50,13 +55,22 @@ public class TaskController extends BaseController {
 
   @PostMapping()
   public ResponseEntity<ServiceResponse<TaskResponse>> create(@Valid @RequestBody TaskRequest createRequest) {
+    var createdUri = URI.create("");
     var taskService = createTaskService.create();
-
+    
     var response = taskService.create(createRequest);
+
+    if (response != null) {
+      var taskId = response.getData().getTaskId();
+      var link = linkTo(methodOn(TaskController.class).getById(taskId)).withSelfRel();
+
+      response.add(link);
+      createdUri = link.toUri();
+    }
 
     // 201
     return ResponseEntity
-        .created(URI.create(""))
+        .created(createdUri)
         .body(response);
   }
 
@@ -77,8 +91,9 @@ public class TaskController extends BaseController {
       @PathVariable @Min(value = 1, message = "El campo taskId es requerido") long taskId) {
     var taskService = createTaskService.create();
 
-    taskService.delete(taskId);
-
+    var response = taskService.delete(taskId);
+    
+    // 204
     return ResponseEntity
         .noContent()
         .build();
@@ -91,6 +106,11 @@ public class TaskController extends BaseController {
 
     var response = taskService.getById(taskId);
 
+    if (response != null) {
+      response.add((linkTo(methodOn(TaskController.class).getById(taskId))).withSelfRel());
+    }
+
+    // 200
     return ResponseEntity
         .ok()
         .body(response);
@@ -102,6 +122,16 @@ public class TaskController extends BaseController {
 
     var response = taskService.getAll();
 
+    if (response != null) {
+      response.getData().forEach(data -> {
+        data.add((linkTo(methodOn(TaskController.class).getById(data.getTaskId()))).withSelfRel());
+        data.add((linkTo(methodOn(TaskController.class).delete(data.getTaskId()))).withRel("delete"));
+      });
+
+      response.add((linkTo(methodOn(TaskController.class).getAll())).withSelfRel());
+    }
+
+    // 200
     return ResponseEntity
         .ok()
         .body(response);
